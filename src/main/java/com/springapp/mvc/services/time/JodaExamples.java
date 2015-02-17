@@ -3,6 +3,7 @@ package com.springapp.mvc.services.time;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.Hours;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -15,16 +16,11 @@ import java.util.Locale;
 public class JodaExamples {
     private static final String pattern = "E MM/dd/yyyy HH:mm:ss.SSS";
     public static void main(String[] args) {
-        DateTime dateTime = new DateTime(DateTimeZone.UTC);
 
-        DateTimeZone timeZone = DateTimeZone.forID( "Asia/Kolkata" );
-        DateTime dateTimeZ = new DateTime(timeZone);
 
-        System.out.println(dateTimeZ.toString(pattern));
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMYYYY HH:mm");
+        DateTime date = formatter.withZone(DateTimeZone.forOffsetHours(5)).parseDateTime("17022015 23:53");
+        System.out.println(Hours.hoursBetween(date, new DateTime()).getHours());
 
-        System.out.println(dateTime.toString(pattern));
-        System.out.println(dateTime.toString(pattern, Locale.GERMANY));
-        System.out.println(dateTime.toString(pattern, Locale.FRENCH));
-        System.out.println(dateTime.toString(pattern, Locale.JAPANESE));
     }
 }
